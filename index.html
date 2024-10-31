@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/D4E0BAQFow-6H6DCFeA/company-logo_100_100/company-logo_100_100/0/1701856035724/ing_hubs_turkiye_logo?e=1738195200&amp;v=beta&amp;t=lNELhXKmYu1diBV79lRz-TeSa2UEmTW7XKWJf7mzBTY" />
+    <title>ING HUB Employee List</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <h6 class="topheading" data-lang="employeeList">Employee List (Table View)</h6>
+
+    <header>
+        <div class="headerLeft">
+            <img src="https://media.licdn.com/dms/image/v2/D4E0BAQFow-6H6DCFeA/company-logo_100_100/company-logo_100_100/0/1701856035724/ing_hubs_turkiye_logo?e=1738195200&amp;v=beta&amp;t=lNELhXKmYu1diBV79lRz-TeSa2UEmTW7XKWJf7mzBTY"
+                class="headerIMG" alt="ING Hubs Türkiye logosu">
+            <h1 class="HeaderH1" data-lang="header">ING</h1>
+        </div>
+        <div class="headerRight">
+            <h2 class="employesHeading2" data-lang="employees">& Employees</h2>
+            <button class="addEmployeeButton" onclick="openModal()" data-lang="addNew"> + Add New</button>
+
+            <!-- Language Selection -->
+            <div class="language-selection">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" alt="Turkish Flag"
+                    class="language-flag" title="Türkçe" onclick="changeLanguage('tr')">
+
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+                    alt="English Flag" class="language-flag" title="English" onclick="changeLanguage('en')">
+            </div>
+        </div>
+    </header>
+    <div class="topToTable">
+        <h1 class="empHeader" data-lang="employeeListHeader">Employee List</h1>
+        <div class="icons">
+            <i class="fa fa-bars iconCss"></i>
+            <i class="fa fa-table iconCss"></i>
+        </div>
+    </div>
+    <div class="container">
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th><input id="fullSelect" type="checkbox" onclick="selectAllCheckboxes(this)"></th>
+                    <th data-lang="firstName">First Name</th>
+                    <th data-lang="lastName">Last Name</th>
+                    <th data-lang="dateOfEmployment">Date of Employment</th>
+                    <th data-lang="dateOfBirth">Date of Birth</th>
+                    <th data-lang="phone">Phone</th>
+                    <th data-lang="email">Email</th>
+                    <th data-lang="department">Department</th>
+                    <th data-lang="position">Position</th>
+                    <th data-lang="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="employee-table-body">
+            </tbody>
+        </table>
+        <div id="pagination" class="pagination"></div>
+        <!-- Employee Add Modal -->
+        <div class="modal" id="employeeModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 class="modalHeading" data-lang="addEmployee">Add Employee</h2>
+                <form id="employeeForm">
+                    <label for="firstName" data-lang="firstName">First Name:</label>
+                    <input type="text" id="firstName" required><br>
+
+                    <label for="lastName" data-lang="lastName">Last Name:</label>
+                    <input type="text" id="lastName" required><br>
+
+                    <label for="dateOfEmployment" data-lang="dateOfEmployment">Date of Employment:</label>
+                    <input type="date" id="dateOfEmployment" required><br>
+
+                    <label for="dateOfBirth" data-lang="dateOfBirth">Date of Birth:</label>
+                    <input type="date" id="dateOfBirth" required><br>
+
+                    <label for="phone" data-lang="phone">Phone:</label>
+                    <input type="text" id="phone" required><br>
+
+                    <label for="email" data-lang="email">Email:</label>
+                    <input type="email" id="email" required><br>
+
+                    <label for="department" data-lang="department">Department:</label>
+                    <select id="department" required>
+                        <option value="Analytics" data-lang="analytics">Analytics</option>
+                        <option value="Tech" data-lang="tech">Tech</option>
+                    </select>
+
+                    <label for="position" data-lang="position">Position:</label>
+                    <select id="position" required>
+                        <option value="Junior" data-lang="junior">Junior</option>
+                        <option value="Medior" data-lang="medior">Medior</option>
+                        <option value="Senior" data-lang="senior">Senior</option>
+                    </select><br>
+
+                    <button type="button" class="addBtn" onclick="addEmployee()" data-lang="add">Add</button>
+                </form>
+
+            </div>
+        </div>
+        <!-- Edit Employee Modal -->
+        <div class="modal" id="editEmployeeModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <h2 class="modalHeading" data-lang="editEmployee">Edit Employee</h2>
+                <form id="editEmployeeForm">
+                    <label for="editFirstName" data-lang="firstName">First Name:</label>
+                    <input type="text" id="editFirstName" required><br>
+
+                    <label for="editLastName" data-lang="lastName">Last Name:</label>
+                    <input type="text" id="editLastName" required><br>
+
+                    <label for="editDateOfEmployment" data-lang="dateOfEmployment">Date of Employment:</label>
+                    <input type="date" id="editDateOfEmployment" required><br>
+
+                    <label for="editDateOfBirth" data-lang="dateOfBirth">Date of Birth:</label>
+                    <input type="date" id="editDateOfBirth" required><br>
+
+                    <label for="editPhone" data-lang="phone">Phone:</label>
+                    <input type="text" id="editPhone" required><br>
+
+                    <label for="editEmail" data-lang="email">Email:</label>
+                    <input type="email" id="editEmail" required><br>
+
+                    <label for="editDepartment" data-lang="department">Department:</label>
+                    <select id="editDepartment" required>
+                        <option value="Analytics" data-lang="analytics">Analytics</option>
+                        <option value="Tech" data-lang="tech">Tech</option>
+                    </select><br>
+
+                    <label for="editPosition" data-lang="position">Position:</label>
+                    <select id="editPosition" required>
+                        <option value="Junior" data-lang="junior">Junior</option>
+                        <option value="Medior" data-lang="medior">Medior</option>
+                        <option value="Senior" data-lang="senior">Senior</option>
+                    </select><br>
+
+                    <button type="button" data-lang="UpdateBtn" class="addBtn" onclick="updateEmployee()">Update</button>
+                </form>
+            </div>
+        </div>
+        <!-- Confirmation Modal -->
+        <div class="confirmation-modal" id="confirmationModal">
+            <div class="confirmation-modal-content">
+                <span class="close" onclick="closeConfirmationModal()">&times;</span>
+                <h2 class="confirmHeading">Are you sure?</h2>
+                <p id="confirmationMessage">Selected employee record will be deleted.</p>
+                <div class="confirmation-buttons">
+                    <button class="confirm-btn" onclick="proceedAction()">Proceed</button>
+                    <button class="cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
